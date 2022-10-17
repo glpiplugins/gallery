@@ -1,0 +1,27 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% include("components/form/header.html.twig") %}
+
+{% set rand = random() %}
+{% set params  = params ?? [] %}
+{% set target = params['target'] ?? item.getFormURL() %}
+{% set withtemplate = params['withtemplate'] ?? "" %}
+
+
+{{ fields.dropdownArrayField(
+    'itemtypes',
+    'test',
+    allItemtypes,
+    'Itemtypes',
+    {multiple: true}
+) }}
+<input type="hidden" name="update" value="update">
+<input type="hidden" name="id" value="{{item.id}}">
+{% include("components/form/buttons.html.twig") %}
+<script>
+    $(window).on('load', function() {
+        var value = $("[name='itemtypes[]']");
+        console.log(value.attr('id'));
+        $('#' + value.attr('id')).val({{item.fields.itemtypes|raw}}); // Select the option with a value of '1'
+        $('#' + value.attr('id')).trigger('change');
+    });
+</script>

@@ -1,0 +1,100 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% include("components/form/header.html.twig") %}
+
+{% set rand = random() %}
+{% set params  = params ?? [] %}
+{% set target = params['target'] ?? item.getFormURL() %}
+{% set withtemplate = params['withtemplate'] ?? "" %}
+<div id="app">
+  {{ fields.fileField(
+    'pictures',
+    gallery.pictures,
+    __('Pictures'),
+    {'multiple': true}
+  ) }}
+  {{ fields.hiddenField(
+    'itemtype',
+    item.itemstype,
+    ''
+  ) }}
+    {{ fields.hiddenField(
+    'items_id',
+    item.id,
+    ''
+  ) }}
+    {{ fields.hiddenField(
+    'locations_id',
+    1,
+    ''
+  ) }}
+  {{ fields.hiddenField(
+    'id',
+    gallery.id,
+    ''
+  ) }}
+  {% if gallery.picturesStatic is empty and gallery.pictures360 is empty%}
+    {{ fields.hiddenField(
+        'add',
+        'add',
+        ''
+      ) }}
+      {% else %}
+    {{ fields.hiddenField(
+        'update',
+        'update',
+        ''
+      ) }}
+  {% endif %}
+
+  {% include("components/form/buttons.html.twig") %}
+
+
+    <div class="picture_gallery d-flex flex-wrap justify-content-start overflow-auto p-3">
+      {% for key, pic in gallery.picturesStatic %}
+      <div class="position-relative m-2">
+      <a href="{{pic}}" class="lightbox-link"><img class="static-picture" src="{{pic}}" /></a>
+      <input type="hidden" name="_blank_pictures_{{key}}">
+      <button type="button" class="btn p-2 position-absolute top-0 end-0" title="Delete" onclick="const blank_input = $('input[name=\'_blank_pictures_{{key}}\']'); blank_input.val(blank_input.val() ? '' : true); $(this).toggleClass('btn-danger')">
+               <i class="ti ti-x"></i>
+            </button>
+      </div>
+      {% endfor %}
+      {% for key, pic in gallery.pictures360 %}
+      <div class="position-relative m-2">
+        <div id="panorama{{loop.index}}" class="panorama"></div>
+        <input type="hidden" name="_blank_pictures_{{key}}">
+        <button type="button" class="btn p-2 position-absolute top-0 end-0" title="Delete" onclick="const blank_input = $('input[name=\'_blank_pictures_{{key}}\']'); blank_input.val(blank_input.val() ? '' : true); $(this).toggleClass('btn-danger')">
+               <i class="ti ti-x"></i>
+            </button>
+      </div>
+      {% endfor %}
+    </div>
+
+</div>
+<style>
+
+  .panorama {
+    width: 375px;
+    height: 250px;
+  }
+
+  .static-picture {
+      max-width: 375px;
+      max-height: 250px;
+  }
+
+</style>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+<script>
+
+  {% for pic in gallery.pictures360 %}
+    pannellum.viewer('panorama{{loop.index}}', {
+      "type": "equirectangular",
+      "panorama": "{{pic}}",
+      "preview": "{{pic}}"
+    });
+  {% endfor %}
+
+  var lightbox = new SimpleLightbox('.lightbox-link', {});
+
+</script>
