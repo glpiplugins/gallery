@@ -13,7 +13,7 @@ This plugin adds a gallery to any asset.
 1. Go to `Setup > Gallery`
 2. Add the asset types to the image config
 
-![alt text](/pics/gallery_config.PNG)
+![alt text](/pics/gallery_config.JPG)
 
 3. Click `Save`
 
