@@ -13,7 +13,7 @@ This plugin adds a gallery to any asset.
 1. Go to `Setup > Gallery`
 2. Add the asset types to the image config
 
-![alt text](/pic/gallery_config.PNG)
+![alt text](/pics/gallery_config.PNG)
 
 3. Click `Save`
 
@@ -34,7 +34,7 @@ Note: If the image format is 2:1 (which is the case for vr images), the plugin w
 
 ## Example
 
-![alt text](/pic/gallery.gif)
+![alt text](/pics/gallery.gif)
 
 ## Contributing
 
