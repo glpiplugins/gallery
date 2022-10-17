@@ -82,9 +82,11 @@ class PluginGalleryGallery extends CommonDBTM
 
         TemplateRenderer::getInstance()->display('@gallery\gallery.html.twig', [
             'item'   => $item,
+            'itemtype' => $item->getType(),
             'gallery' => $gallery,
             'params' => $options,
         ]);
+        
         return true;
 
     }

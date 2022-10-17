@@ -33,7 +33,7 @@ Session::checkLoginUser();
 
 $config = new PluginGalleryConfig();
 if (isset($_POST["add"])) {
-   $pictures->check(-1, CREATE, $_POST);
+   $config->check(-1, CREATE, $_POST);
 
    $config->add($_POST);
 
