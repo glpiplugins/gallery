@@ -32,7 +32,7 @@
     gallery.id,
     ''
   ) }}
-  {% if item.id is same as -1%}
+  {% if gallery.id is same as(-1) %}
     {{ fields.hiddenField(
         'add',
         'add',
