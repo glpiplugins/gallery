@@ -32,7 +32,7 @@
     gallery.id,
     ''
   ) }}
-  {% if gallery.picturesStatic is empty and gallery.pictures360 is empty%}
+  {% if item.id is same as -1%}
     {{ fields.hiddenField(
         'add',
         'add',
